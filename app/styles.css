@@ -1,0 +1,86 @@
+/* Core Palette & Effects */
+:root {
+  --bud-primary: #a78bfa; /* Violet-400 */
+  --bud-dark: #0f0824;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bud-dark);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+}
+
+/* Animations for Bud, Kaze, and Ryu */
+@keyframes budFloat { 
+  0%, 100% { transform: translateY(0); } 
+  50% { transform: translateY(-7px); } 
+}
+
+@keyframes budBounce { 
+  0%, 100% { transform: translateY(0) scale(1); } 
+  50% { transform: translateY(-14px) scale(1.06); } 
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes mouseRoll {
+  0% { transform: translateX(-80px) rotate(-10deg); }
+  100% { transform: translateX(80px) rotate(10deg); }
+}
+
+@keyframes typingDot {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-5px); opacity: 1; }
+}
+
+@keyframes starfishPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.6; }
+}
+
+@keyframes voicePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* Glassmorphism Base */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+/* Antigravity Daily Cycle - Morning Hustle Glow */
+.mode-motivated {
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.15);
+    border: 1px solid rgba(255, 165, 0, 0.4) !important;
+}
+
+/* Mascot Container for 3D Render */
+.mascot-3d-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    touch-action: none;
+}
+

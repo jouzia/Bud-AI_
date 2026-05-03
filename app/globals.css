@@ -1,0 +1,1343 @@
+/* ═══════════════════════════════════════════════════════════════════
+   BUD AI · globals.css
+   Full theme engine: 4 themes × 6 moods × all keyframes
+   Instrument Serif + Nunito · Glassmorphism · Bento Grid system
+═══════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ── CSS Variable System ─────────────────────────────────────── */
+:root {
+  /* Base dark (default) */
+  --bg-primary: #070612;
+  --bg-secondary: #0d0b22;
+  --bg-tertiary: #12102e;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+
+  /* Glass tokens */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-blur: 24px;
+  --glass-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  /* Text */
+  --text-primary: #f5f5f5;
+  --text-secondary: #888888;
+  --text-muted: rgba(255, 255, 255, 0.3);
+
+  /* Accent (default: Indigo) */
+  --accent-1: #4E85BF;
+  --accent-2: #89AACC;
+  --accent-glow: rgba(78, 133, 191, 0.35);
+
+  /* Mood palette tokens (overridden by [data-mood]) */
+  --mood-grad-1: #7c3aed;
+  --mood-grad-2: #4f46e5;
+  --mood-glow: rgba(124, 58, 237, 0.4);
+  --mood-text: #c4b5fd;
+  --mood-glass: rgba(124, 58, 237, 0.08);
+  --mood-border: rgba(167, 139, 250, 0.25);
+
+  /* Typography */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  /* Radius */
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-full: 9999px;
+
+  /* Bento grid */
+  --bento-gap: 16px;
+  --bento-cols: 3;
+
+  /* Loader */
+  --loader-size: 48px;
+  --loader-color: var(--accent-1);
+}
+
+/* ── Theme: Dark (default) ───────────────────────────────────── */
+[data-theme="dark"],
+:root {
+  --bg-primary: #070612;
+  --bg-secondary: #0d0b22;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --text-primary: #f5f5f5;
+  --text-secondary: #888888;
+}
+
+/* ── Theme: Light ────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary: #f0f0f8;
+  --bg-secondary: #e8e8f5;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(100, 100, 200, 0.2);
+  --text-primary: #0d0b22;
+  --text-secondary: #555566;
+  --text-muted: rgba(0, 0, 0, 0.4);
+  --glass-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Theme: Dynamic (time-based — JS-driven) ─────────────────── */
+[data-theme="dynamic"] {
+  /* Same as dark by default; JS toggles to light based on hour */
+  --bg-primary: #070612;
+}
+
+/* ── Theme: Reading Lens ─────────────────────────────────────── */
+[data-theme="reading"] {
+  --bg-primary: #1a1510;
+  --bg-secondary: #231e17;
+  --bg-card: rgba(255, 240, 200, 0.06);
+  --glass-bg: rgba(255, 240, 200, 0.08);
+  --glass-border: rgba(255, 220, 150, 0.15);
+  --text-primary: #f5e6c8;
+  --text-secondary: #a89070;
+  --text-muted: rgba(245, 230, 200, 0.4);
+  --accent-1: #c9a35a;
+  --accent-2: #e8c87a;
+  --accent-glow: rgba(201, 163, 90, 0.3);
+}
+
+/* ── Mood Overrides ──────────────────────────────────────────── */
+[data-mood="motivated"] {
+  --mood-grad-1: #f59e0b;
+  --mood-grad-2: #d97706;
+  --mood-glow: rgba(245, 158, 11, 0.4);
+  --mood-text: #fcd34d;
+  --mood-glass: rgba(245, 158, 11, 0.08);
+  --mood-border: rgba(245, 158, 11, 0.3);
+}
+
+[data-mood="calm"] {
+  --mood-grad-1: #0ea5e9;
+  --mood-grad-2: #0284c7;
+  --mood-glow: rgba(14, 165, 233, 0.35);
+  --mood-text: #bae6fd;
+  --mood-glass: rgba(14, 165, 233, 0.07);
+  --mood-border: rgba(14, 165, 233, 0.25);
+}
+
+[data-mood="focused"] {
+  --mood-grad-1: #e2e8f0;
+  --mood-grad-2: #94a3b8;
+  --mood-glow: rgba(226, 232, 240, 0.2);
+  --mood-text: #f1f5f9;
+  --mood-glass: rgba(255, 255, 255, 0.06);
+  --mood-border: rgba(255, 255, 255, 0.2);
+}
+
+[data-mood="playful"] {
+  --mood-grad-1: #e879f9;
+  --mood-grad-2: #a21caf;
+  --mood-glow: rgba(232, 121, 249, 0.4);
+  --mood-text: #f5d0fe;
+  --mood-glass: rgba(232, 121, 249, 0.1);
+  --mood-border: rgba(232, 121, 249, 0.35);
+}
+
+[data-mood="grumpy"] {
+  --mood-grad-1: #ef4444;
+  --mood-grad-2: #b91c1c;
+  --mood-glow: rgba(239, 68, 68, 0.35);
+  --mood-text: #fca5a5;
+  --mood-glass: rgba(239, 68, 68, 0.07);
+  --mood-border: rgba(239, 68, 68, 0.28);
+}
+
+[data-mood="empathetic"] {
+  --mood-grad-1: #c084fc;
+  --mood-grad-2: #7c3aed;
+  --mood-glow: rgba(192, 132, 252, 0.38);
+  --mood-text: #e9d5ff;
+  --mood-glass: rgba(192, 132, 252, 0.08);
+  --mood-border: rgba(192, 132, 252, 0.3);
+}
+
+/* ── Reset & Base ────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-1);
+}
+
+/* Custom cursor */
+* {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-1);
+  pointer-events: none;
+  z-index: 99998;
+  transition: transform 0.25s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+}
+
+.cursor-hover .custom-cursor {
+  width: 20px;
+  height: 20px;
+}
+
+.cursor-hover .custom-cursor-ring {
+  width: 52px;
+  height: 52px;
+  opacity: 0.8;
+}
+
+/* ── Typography utilities ────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--mood-grad-1), var(--mood-grad-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-accent-gradient {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glassmorphism utilities ─────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass-mood {
+  background: var(--mood-glass);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--mood-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 35px var(--mood-glow);
+}
+
+.glow-mood {
+  box-shadow: 0 0 30px var(--mood-glow);
+}
+
+.glow-accent {
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.border-mood {
+  border-color: var(--mood-border);
+}
+
+/* ── Bento Grid system ───────────────────────────────────────── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--bento-cols), 1fr);
+  gap: var(--bento-gap);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .bento-grid {
+    --bento-cols: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .bento-grid {
+    --bento-cols: 1;
+  }
+}
+
+/* Cell span helpers */
+.bento-span-2 {
+  grid-column: span 2;
+}
+
+.bento-span-3 {
+  grid-column: span 3;
+}
+
+.bento-row-2 {
+  grid-row: span 2;
+}
+
+/* ── ═══════════════════════════════════════════════════════════ */
+/* ── ALL KEYFRAME ANIMATIONS ─────────────────────────────────── */
+/* ── ═══════════════════════════════════════════════════════════ */
+
+/* Floating */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes floatSlow {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+/* Pulse / Glow ring (Lucky Falcon voice visualizer) */
+@keyframes voicePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    box-shadow: 0 0 0 16px transparent;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes ringExpand {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Stealth Starfish (Security block loader) */
+@keyframes starfishSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(0.9);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes starfishPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.12);
+  }
+}
+
+/* Jolly Sheep (quick thinking) */
+@keyframes sheepBounce {
+
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1);
+  }
+
+  30% {
+    transform: translateY(-14px) scaleX(1.1);
+  }
+
+  60% {
+    transform: translateY(-6px) scaleX(0.95);
+  }
+}
+
+@keyframes woolWobble {
+
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Unlucky Mouse (full-screen generate loader) */
+@keyframes mouseRoll {
+  0% {
+    transform: translateX(-80px) rotate(-15deg);
+  }
+
+  100% {
+    transform: translateX(80px) rotate(15deg);
+  }
+}
+
+@keyframes mouseEyes {
+
+  0%,
+  85%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  90% {
+    transform: scaleY(0.1);
+  }
+}
+
+/* Toy Camera (quiz result) */
+@keyframes cameraFlash {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes polaroidEject {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translateY(-20px) rotate(-3deg) scale(1.05);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(5px) rotate(2deg) scale(0.98);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Progress bar / counter */
+@keyframes progressFill {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Word rotate (loader) */
+@keyframes wordIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wordOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+}
+
+/* Card entrance (Bento stagger) */
+@keyframes bentoEnter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mascot peek (Visme login) */
+@keyframes peekUp {
+  from {
+    transform: translateY(60%) rotate(-2deg);
+  }
+
+  to {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes eyeTrack {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(var(--eye-x, 0px), var(--eye-y, 0px));
+  }
+}
+
+/* Globe rotation */
+@keyframes globeSpin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Blossom leaf bloom */
+@keyframes leafBloom {
+  0% {
+    transform: scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes leafWither {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.3) rotate(15deg);
+    opacity: 0;
+    filter: sepia(1);
+  }
+}
+
+/* Theme toggle */
+@keyframes sunRise {
+  from {
+    transform: translateY(20px) scale(0.5);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes moonRise {
+  from {
+    transform: translateY(20px) scale(0.5);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Shake (error) */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-8px);
+  }
+
+  40% {
+    transform: translateX(8px);
+  }
+
+  60% {
+    transform: translateX(-5px);
+  }
+
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Fade */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--mood-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 45px var(--mood-glow), 0 0 80px var(--mood-glow);
+  }
+}
+
+/* Typing dots */
+@keyframes typingDot {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* Mascot idle float + action animations */
+@keyframes budFloat {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-7px)
+  }
+}
+
+@keyframes budBounce {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1)
+  }
+
+  40% {
+    transform: translateY(-14px) scale(1.06)
+  }
+
+  70% {
+    transform: translateY(-6px) scale(1.02)
+  }
+}
+
+@keyframes budNod {
+
+  0%,
+  100% {
+    transform: rotate(0)
+  }
+
+  20% {
+    transform: rotate(-4deg)
+  }
+
+  60% {
+    transform: rotate(4deg)
+  }
+}
+
+@keyframes budSpin {
+  0% {
+    transform: rotate(0)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes budShake {
+
+  0%,
+  100% {
+    transform: translateX(0)
+  }
+
+  25% {
+    transform: translateX(-5px)
+  }
+
+  75% {
+    transform: translateX(5px)
+  }
+}
+
+@keyframes budBreath {
+
+  0%,
+  100% {
+    transform: scale(1)
+  }
+
+  50% {
+    transform: scale(1.05)
+  }
+}
+
+@keyframes budPower {
+  0% {
+    transform: scale(1)
+  }
+
+  30% {
+    transform: scale(1.3) rotate(-5deg)
+  }
+
+  60% {
+    transform: scale(0.9) rotate(5deg)
+  }
+
+  100% {
+    transform: scale(1.15)
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Particle drift */
+/* Particle drift */
+@keyframes particleDrift {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-100px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* ── Loader component classes ─────────────────────────────────── */
+
+/* Jolly Sheep */
+.loader-sheep {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.loader-sheep-body {
+  width: 40px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  animation: sheepBounce 0.9s ease-in-out infinite, woolWobble 0.45s ease-in-out infinite alternate;
+}
+
+.loader-sheep-legs {
+  display: flex;
+  gap: 8px;
+}
+
+.loader-sheep-leg {
+  width: 6px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--text-secondary);
+  animation: sheepBounce 0.9s ease-in-out infinite;
+}
+
+.loader-sheep-leg:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.loader-sheep-leg:nth-child(3) {
+  animation-delay: 0.07s;
+}
+
+.loader-sheep-leg:nth-child(4) {
+  animation-delay: 0.22s;
+}
+
+/* Stealth Starfish */
+.loader-starfish {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  animation: starfishSpin 1.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.loader-starfish::before,
+.loader-starfish::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent-1);
+}
+
+.loader-starfish::before {
+  animation: spin 1s linear infinite;
+}
+
+.loader-starfish::after {
+  border-top-color: var(--mood-grad-1);
+  animation: spin 0.7s linear infinite reverse;
+  inset: 8px;
+}
+
+/* Unlucky Mouse (full screen) */
+.loader-mouse-track {
+  width: 160px;
+  height: 40px;
+  position: relative;
+  overflow: visible;
+}
+
+.loader-mouse-body {
+  width: 28px;
+  height: 20px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: var(--text-secondary);
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: mouseRoll 1.1s ease-in-out infinite alternate;
+}
+
+/* Voice ring (Lucky Falcon) */
+.voice-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-1);
+  position: absolute;
+  animation: ringExpand 1.8s ease-out infinite;
+  opacity: 0;
+}
+
+.voice-ring:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.voice-ring:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(90deg,
+      var(--bg-card) 25%,
+      var(--bg-card-hover) 50%,
+      var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: var(--r-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Noise grain overlay ──────────────────────────────────────── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+}
+
+[data-theme="reading"] .grain-overlay {
+  opacity: 0.05;
+}
+
+/* ── Ambient Orbs ────────────────────────────────────────────── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatSlow 8s ease-in-out infinite;
+  filter: blur(60px);
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  left: -200px;
+  background: radial-gradient(circle, var(--mood-glow) 0%, transparent 70%);
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  bottom: -150px;
+  right: -100px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  animation-delay: -4s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  top: 40%;
+  right: 20%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  animation-delay: -2s;
+}
+
+/* ── Bento card base ─────────────────────────────────────────── */
+.bento-card {
+  border-radius: var(--r-lg);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  animation: bentoEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 40px var(--mood-glow);
+}
+
+/* Stagger delays for Bento cards */
+.bento-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.bento-card:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+.bento-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.bento-card:nth-child(4) {
+  animation-delay: 0.20s;
+}
+
+.bento-card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.bento-card:nth-child(6) {
+  animation-delay: 0.30s;
+}
+
+.bento-card:nth-child(7) {
+  animation-delay: 0.35s;
+}
+
+.bento-card:nth-child(8) {
+  animation-delay: 0.40s;
+}
+
+.bento-card:nth-child(9) {
+  animation-delay: 0.45s;
+}
+
+.bento-card:nth-child(10) {
+  animation-delay: 0.50s;
+}
+
+.bento-card:nth-child(11) {
+  animation-delay: 0.55s;
+}
+
+.bento-card:nth-child(12) {
+  animation-delay: 0.60s;
+}
+
+.bento-card:nth-child(13) {
+  animation-delay: 0.65s;
+}
+
+/* ── Adaptive Message Cards ──────────────────────────────────── */
+.msg-card {
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  border-left: 3px solid transparent;
+  transition: all 0.4s ease;
+}
+
+.msg-card[data-state="motivated"] {
+  background: rgba(245, 158, 11, 0.1);
+  border-left-color: #f59e0b;
+  color: #fcd34d;
+}
+
+.msg-card[data-state="calm"] {
+  background: rgba(14, 165, 233, 0.1);
+  border-left-color: #0ea5e9;
+  color: #bae6fd;
+}
+
+.msg-card[data-state="alert"] {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+  color: #fca5a5;
+  animation: shake 0.5s ease;
+}
+
+.msg-card[data-state="success"] {
+  background: rgba(16, 185, 129, 0.1);
+  border-left-color: #10b981;
+  color: #6ee7b7;
+}
+
+/* ── Error field (Dark Grey Roll-down) ───────────────────────── */
+.field-error {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #fca5a5;
+  margin-top: -2px;
+  animation: fadeInDown 0.25s ease;
+}
+
+/* ── Polaroid / Toy Camera flash ─────────────────────────────── */
+.camera-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  pointer-events: none;
+  z-index: 9990;
+  animation: cameraFlash 0.25s ease forwards;
+}
+
+.polaroid {
+  background: white;
+  border-radius: 4px;
+  padding: 12px 12px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  animation: polaroidEject 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  font-family: var(--font-display);
+  color: #333;
+}
+
+/* ── Theme toggle button ─────────────────────────────────────── */
+.theme-toggle {
+  width: 56px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.4s ease;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.theme-toggle[data-on="true"] .theme-toggle-thumb {
+  transform: translateX(28px);
+}
+
+/* ── Voice Visualizer Bars ───────────────────────────────────── */
+.voice-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 32px;
+}
+
+.voice-bar {
+  width: 4px;
+  border-radius: 2px;
+  background: var(--accent-1);
+  transition: height 0.1s ease;
+  animation: voiceBarAnim 0.8s ease-in-out infinite alternate;
+}
+
+.voice-bar:nth-child(1) {
+  animation-duration: 0.7s;
+  animation-delay: 0s;
+}
+
+.voice-bar:nth-child(2) {
+  animation-duration: 0.9s;
+  animation-delay: 0.1s;
+}
+
+.voice-bar:nth-child(3) {
+  animation-duration: 0.6s;
+  animation-delay: 0.2s;
+}
+
+.voice-bar:nth-child(4) {
+  animation-duration: 1.1s;
+  animation-delay: 0.15s;
+}
+
+.voice-bar:nth-child(5) {
+  animation-duration: 0.75s;
+  animation-delay: 0.05s;
+}
+
+@keyframes voiceBarAnim {
+  from {
+    height: 6px;
+  }
+
+  to {
+    height: 28px;
+  }
+}
+
+/* ── Responsive utilities ────────────────────────────────────── */
+.hide-mobile {
+  @media (max-width: 640px) {
+    display: none !important;
+  }
+}
+
+.hide-tablet {
+  @media (max-width: 1024px) {
+    display: none !important;
+  }
+}
+
+/* ── Accessibility ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
