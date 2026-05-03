@@ -3,7 +3,7 @@
 Copy and paste the block below into your `README.md` file:
 
 ```markdown
-# 🐾 Bud AI - Emotion-Responsive Study Assistant
+#  Bud AI - Emotion-Responsive Study Assistant
 
 Bud AI is an interactive, AI-driven study companion developed for **Protothon 2026**. It features an emotion-responsive mascot designed to make learning more engaging through personalized interaction.
 
